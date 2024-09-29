@@ -1,0 +1,230 @@
+body {
+    font-family: 'Kosugi Maru', sans-serif;
+    background: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+/*入力*/
+.container {
+    width: 80vw;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 2px solid #036635;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+}
+
+.container h2 {
+    text-align: center;
+    color: #036635;
+    font-size: 1.6rem;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+.container p {
+    font-size: 0.7rem;
+    text-align: left;
+}
+
+.container .input-group {
+    margin-bottom: 15px;
+}
+
+.container .input-group input {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 35px;
+    font-size: 1rem;
+}
+
+.container button {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    background-color: #036635;
+    color: #ffffff;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+.container button:hover {
+    background-color: #004222;
+}
+
+.containerbutton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.container #result {
+    margin-top: 20px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 0.8rem;
+    color: red;
+}
+
+.check {
+    width: 80vw;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 2px solid #036635;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    text-align: center;
+}
+
+.check h2 {
+    color: #036635;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.check p {
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+.check button {
+    width: 45%;
+    height: 40px;
+    margin-top: 20px;
+    background-color: #036635;
+    color: #ffffff;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+.check h2,
+.check h3,
+.check p {
+    margin: 10px 0;
+}
+
+/*確認表示*/
+.check {
+    width: 80vw;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 2px solid #036635;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    text-align: center;
+    display: none;
+}
+.check h2 {
+    color: #036635;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+.check p {
+    font-size: 0.8rem;
+    margin: 0;
+}
+.check button{
+    width: 45%;
+    height: 40px;
+    margin-top: 20px;
+    background-color: #036635;
+    color: #ffffff;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+.check h2,
+.check h3,
+.check p {
+    margin: 10px 0;
+}
+.check .flex {
+    display: flex;
+    justify-content: space-around;
+}
+/*成功*/
+.success {
+    display: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.success h1 {
+    color: #006241;
+    font-size: 2rem;
+    margin-top: 0;
+}
+
+.success p {
+    font-size: 1rem;
+    color: #666;
+    margin: 20px 0;
+}
+
+.success button {
+    background-color: #006241;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 90%;
+    transition: background-color 0.3s;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/*ローディング*/
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.8rem;
+}

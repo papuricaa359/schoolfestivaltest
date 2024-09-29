@@ -1,0 +1,368 @@
+* {
+    box-sizing: border-box;
+    font-family: "Kosugi Maru", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    background-color: rgb(238, 238, 238);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+header {
+    background-color: #006241;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 2rem;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+@media (max-width: 600px) {
+    header {
+        font-size: 0.7rem;
+        padding: 5px;
+    }
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 50;
+}
+
+/*注文画面*/
+main {
+    padding: 0% 5% 0% 5%;
+    position: absolute;
+    z-index: 10;
+    font-weight: bold;
+    width: 100%;
+}
+
+main .flex {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+main #title {
+    width: 25%;
+    height: 50px;
+    font-size: 10px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+}
+
+main .area {
+    width: 60%;
+    height: 50px;
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+#dayarea,
+#hourarea,
+#minutearea {
+    font-weight: bold;
+}
+
+main button {
+    width: 15%;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: #036635;
+    border: none;
+    font-weight: bold;
+}
+
+main .viewport {
+    margin-top: 20px;
+    border-bottom: 2px solid #000000;
+    width: 100%;
+    padding: 0;
+}
+
+.boxset {
+    position: relative;
+    z-index: 100;
+    margin-top: 100px;
+}
+
+.box {
+    display: none;
+    width: 300px;
+    height: 300px;
+    border-radius: 15px;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: black;
+    margin: auto;
+}
+
+.box h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.box input,
+.box button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.box input {
+    border: none;
+    background-color: rgb(225, 225, 225);
+}
+
+.box button {
+    border: none;
+    color: white;
+    background-color: #036635;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.box button:hover {
+    background-color: #036635;
+}
+
+.box.show,
+.overlay.show {
+    display: block;
+}
+
+#beni {
+    width: 15px;
+    height: 15px;
+}
+
+.benicheck {
+    justify-content: center;
+}
+
+.error-message {
+    margin-top: 10px;
+    color: red;
+    font-size: 14px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.name p {
+    font-size: 12px;
+    color: rgb(130, 130, 130);
+}
+
+.name h3 {
+    font-size: 15px;
+}
+
+.box select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 50%;
+    background-color: rgb(225, 225, 225);
+}
+
+.time h3 {
+    font-size: 15px;
+}
+
+.time p {
+    font-size: 12px;
+    color: black;
+    margin: 0;
+}
+
+.order {
+    height: 530px;
+    text-align: center;
+}
+
+.order h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.order h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.order img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.order p {
+    margin: 0;
+}
+
+.order select {
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+.sumflex {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+.sum {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.sum #title {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.sum #pricearea {
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: 20px;
+    text-align: right;
+    width: auto;
+    min-width: 75px;
+}
+
+.sendbutton {
+    width: 100%;
+    border-radius: 20px;
+}
+
+.check button {
+    width: 45%;
+}
+
+.check {
+    height: 160px;
+}
+
+.check .orderbutton {
+    margin-left: 10%;
+}
+
+.sendnow {
+    background-color: #00000000;
+    box-shadow: none;
+    height: 200px;
+}
+
+.sendnow h1 {
+    line-height: 200px;
+    font-weight: normal;
+    color: white;
+}
+
+.flex {
+    display: flex;
+    width: 100%;
+}
+
+/* 注文成功画面 */
+.success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    text-align: center; 
+    width: 90%;
+    max-width: 480px; 
+    margin: auto; 
+}
+
+.success h1 {
+    font-size: 1.5rem;
+}
+
+#result {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    width: 100%;
+    max-width: 480px;
+    text-align: left;
+    display: inline-block;
+    border: 1px solid #ddd;
+}
+
+#result p {
+    font-size: 1.3rem;
+    color: #4e4e4e;
+    margin: 12px 0;
+}
+
+#result span {
+    font-weight: bold;
+    color: #1e3932;
+}
+
+.button-link {
+    background-color: #00704a;
+    color: white;
+    padding: 12px 50px;
+    display: inline-block;
+    margin-top: 30px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.button-link:hover {
+    background-color: #0d5c42;
+    transform: translateY(-3px);
+}
