@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <title>レジ</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #ffffff;
+        overflow: hidden;
+    }
+
+    .container {
+        position: relative;
+        width: 1000px;
+        height: 700px;
+        background-color: rgb(255, 255, 255);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .flex {
+        display: flex;
+    }
+
+    .monyshow .flex {
+        border: solid 1px #000;
+    }
+
+    .left {
+        width: 400px;
+        margin-right: 100px;
+    }
+
+    input {
+        height: 50px;
+        width: 340px;
+        font-size: 40px;
+    }
+
+    #ordercheck {
+        width: 56px;
+        height: 56px;
+        font-size: 18px;
+        color: black;
+        font-weight: bold;
+    }
+
+    #id {
+        width: 300px;
+        height: 40px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+
+    #proname {
+        width: 250px;
+        height: 50px;
+        font-size: 40px;
+        background-color: rgb(255, 255, 255);
+    }
+
+    .prosele {
+        border: solid 1px #000;
+    }
+
+    #proqty {
+        width: 100px;
+        height: 50px;
+        font-size: 40px;
+        background-color: #ffffff;
+        text-align: right;
+    }
+
+    #ko {
+        width: 50px;
+        height: 50px;
+        margin: 0;
+        font-size: 40px;
+    }
+
+    .product {
+        margin-top: 50px;
+    }
+
+    .product button {
+        margin-top: 5px;
+        height: 270px;
+        width: 400px;
+        font-size: 40px;
+        color: #000;
+    }
+
+    .tenkey {
+        width: 500px;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tenkey button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: #000;
+    }
+
+    .number,
+    .wide,
+    .confirm,
+    .cancelTransaction,
+    .cancel {
+        display: inline-block;
+        margin: 0vw;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .number {
+        width: 100px;
+        height: 100px;
+        font-size: 50px;
+    }
+
+    .wide {
+        width: 200px;
+        height: 100px;
+        font-size: 50px;
+    }
+
+    .confirm {
+        width: 100px;
+        height: 200px;
+        font-size: 50px;
+    }
+
+    .cancelTransaction {
+        width: 100px;
+        height: 100px;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .cancel {
+        width: 100px;
+        height: 100px;
+        font-size: 30px;
+        text-align: center;
+    }
+
+    .monyshow {
+        margin-bottom: 50px;
+    }
+
+    .showcont {
+        width: 350px;
+        height: 50px;
+        font-size: 40px;
+        background-color: rgb(255, 255, 255);
+    }
+
+    .name {
+        margin: 0;
+        width: 150px;
+        height: 50px;
+        background-color: rgb(255, 255, 255);
+        border-right: solid 1px #000;
+        font-size: 35px;
+        text-align: center;
+    }
+
+    #allqty {
+        margin: 0;
+        width: 80px;
+        height: 50px;
+        font-size: 40px;
+        background-color: rgb(255, 255, 255);
+    }
+
+    #allq {
+        margin: 0;
+        width: 50px;
+        height: 50px;
+        font-size: 40px;
+        text-align: center;
+    }
+
+    #allmoney {
+        width: 220px;
+        height: 50px;
+        font-size: 40px;
+        background-color: #ffffff;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <!--オーダーID-->
+            <div class="flex">
+                <input type="text" id="check" required placeholder="オーダーID">
+                <button id="ordercheck" type="button">取得</button>
+            </div>
+            <!--選択商品表示-->
+            <div class="prosele flex">
+                <div id="proname"></div>
+                <div id="proqty"></div>
+                <div id="ko">個</div>
+            </div>
+
+            <!--商品-->
+            <div class="product">
+                <button type="button" onclick="yakisoba()">焼きそば</button>
+            </div>
+        </div>
+
+        <div class="right">
+            <!--金額等表示-->
+            <div class="monyshow">
+                <div class="flex">
+                    <div class="name">合計</div>
+                    <div id="allqty">0</div>
+                    <div id="allq">個</div>
+                    <div id="allmoney">0</div>
+                </div>
+                <div class="flex">
+                    <div class="name">値引額</div>
+                    <div id="dismoney" class="showcont">0</div>
+                </div>
+                <div class="flex">
+                    <div class="name">支払総額</div>
+                    <div id="paymoney" class="showcont">0</div>
+                </div>
+                <div class="flex">
+                    <div class="name">預かり</div>
+                    <div id="depmoney" class="showcont">0</div>
+                </div>
+                <div class="flex">
+                    <div class="name">お釣り</div>
+                    <div id="chanmoney" class="showcont">0</div>
+                </div>
+            </div>
+            <!--テンキー-->
+            <div class="tenkey">
+                <div class="flex">
+                    <button class="cancel" id="cancel" type="button">C</button>
+                    <button class="number" id="number7" type="button">7</button>
+                    <button class="number" id="number8" type="button">8</button>
+                    <button class="number" id="number9" type="button">9</button>
+                    <button class="cancelTransaction" id="cancelTransaction" type="button">中止</button>
+                </div>
+                <div class="flex">
+                    <button class="confirm" id="discount" type="button">値<br>引</button>
+                    <div>
+                        <div class="flex">
+                            <button class="number" id="number4" type="button">4</button>
+                            <button class="number" id="number5" type="button">5</button>
+                            <button class="number" id="number6" type="button">6</button>
+                        </div>
+                        <div class="flex">
+                            <button class="number" id="number1" type="button">1</button>
+                            <button class="number" id="number2" type="button">2</button>
+                            <button class="number" id="number3" type="button">3</button>
+                        </div>
+                    </div>
+                    <button class="confirm" id="confirm" type="button">確<br>定</button>
+                </div>
+                <div class="flex">
+                    <button class="cancelTransaction" id="end" type="button">終了</button>
+                    <button class="number" id="number0" type="button">0</button>
+                    <button class="number" id="number00" type="button">00</button>
+                    <button class="wide" id="settlement" type="button">清算</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const productview = document.getElementById('proname');
+        const proqty = document.getElementById('proqty');
+        const totalqtyshow = document.getElementById('allqty');
+        const totalamount = document.getElementById('allmoney');
+        const discountshow = document.getElementById('dismoney');
+        const payallshow = document.getElementById('paymoney');
+        const azukarishow = document.getElementById('depmoney');
+        const changeshow = document.getElementById('chanmoney');
+
+        let input_value = 0;
+        let yakisobaflag = 0;
+        let quapro = "";
+        let pricenow = 0;
+        let total = 0;
+        let totalqty = 0;
+        let discountflag = 0;
+        let discount = 0;
+        let payall = 0;
+        let azukari = 0;
+        let azukariflag = 0;
+        let change = 0;
+        let changeflag = 0;
+        let finshflag = 0;
+        document.getElementById('ordercheck').addEventListener('click', () => {
+            orderresponce();
+        });
+        function yakisoba() {
+            yakisobaflag = 1;
+            productview.textContent = "焼きそば";
+            quapro = 1;
+            input_value = 0;
+            valueshow(quapro);
+        }
+
+        function valueshow(value) {
+            if (yakisobaflag === 1) {
+                proqty.textContent = value;
+            }
+        }
+
+        function updateInputValue(num) {
+            if (input_value === 0) {
+                input_value = num;
+            } else {
+                input_value = input_value * 10 + num;
+            }
+
+            if (yakisobaflag === 1) {
+                quapro = input_value;
+                valueshow(quapro);
+            } else if (discountflag === 1) {
+                discount = input_value;
+                discountshow.textContent = discount;
+            } else if (azukariflag === 1) {
+                azukari = input_value;
+                azukarishow.textContent = azukari;
+                changeflag = 1;
+            } else {
+                input_value = 0;
+            }
+        }
+
+        document.getElementById('number1').addEventListener('click', () => {
+            updateInputValue(1);
+        });
+
+        document.getElementById('number2').addEventListener('click', () => {
+            updateInputValue(2);
+        });
+
+        document.getElementById('number3').addEventListener('click', () => {
+            updateInputValue(3);
+        });
+
+        document.getElementById('number4').addEventListener('click', () => {
+            updateInputValue(4);
+        });
+
+        document.getElementById('number5').addEventListener('click', () => {
+            updateInputValue(5);
+        });
+
+        document.getElementById('number6').addEventListener('click', () => {
+            updateInputValue(6);
+        });
+
+        document.getElementById('number7').addEventListener('click', () => {
+            updateInputValue(7);
+        });
+
+        document.getElementById('number8').addEventListener('click', () => {
+            updateInputValue(8);
+        });
+
+        document.getElementById('number9').addEventListener('click', () => {
+            updateInputValue(9);
+        });
+
+        document.getElementById('number0').addEventListener('click', () => {
+            if (input_value !== 0) {
+                input_value *= 10;
+            }
+            quapro = input_value;
+            if (yakisobaflag === 1) {
+                valueshow(quapro);
+            } else if (discountflag === 1) {
+                discount = input_value;
+                discountshow.textContent = discount;
+            } else if (azukariflag === 1) {
+                azukari = input_value;
+                azukarishow.textContent = azukari;
+                changeflag = 1;
+            } else {
+                input_value = 0;
+            }
+        });
+
+        document.getElementById('number00').addEventListener('click', () => {
+            if (input_value !== 0) {
+                input_value *= 100;
+            }
+            quapro = input_value;
+            if (yakisobaflag === 1) {
+                valueshow(quapro);
+            } else if (discountflag === 1) {
+                discount = input_value;
+                discountshow.textContent = discount;
+            } else if (azukariflag === 1) {
+                azukari = input_value;
+                azukarishow.textContent = azukari;
+                changeflag = 1;
+            } else {
+                input_value = 0;
+            }
+        });
+
+        document.getElementById('cancel').addEventListener('click', () => {
+            input_value = 0;
+            if (yakisobaflag === 1) {
+                quapro = "";
+                valueshow(quapro);
+            } else if (discountflag === 1) {
+                discount = "";
+                discountshow.textContent = discount;
+            } else if (azukariflag === 1) {
+                azukari = "";
+                azukarishow.textContent = azukari;
+            }
+        });
+
+        document.getElementById('cancelTransaction').addEventListener('click', () => {
+            reset();
+        });
+
+        document.getElementById('discount').addEventListener('click', () => {
+                // 値引きの処理
+                if (discountflag === 1) {
+                    payall = total - discount;
+                    payallshow.textContent = payall;
+                    input_value = 0;
+                    discountflag = 0;
+                } else {
+                    discountflag = 1;
+                    input_value = 0;
+                }
+        });
+
+        document.getElementById('confirm').addEventListener('click', () => {
+            if (yakisobaflag === 1) {
+                pricenow = 400 * quapro;
+                total = total + pricenow;
+                totalqty = totalqty + quapro;
+                totalqtyshow.textContent = totalqty;
+                totalamount.textContent = total;
+                payall = total - discount;
+                payallshow.textContent = payall;
+                // リセット
+                yakisobaflag = 0;
+                input_value = 0;
+                quapro = "";
+                valueshow(input_value);
+                productview.textContent = "";
+                proqty.textContent = "";
+            } else if (discountflag === 1) {
+                payall = total - discount;
+                payallshow.textContent = payall;
+                discount = 0;
+                discountflag = 0;
+                input_value = 0;
+            }
+        });
+
+        document.getElementById('settlement').addEventListener('click', () => {
+            if (yakisobaflag === 1) {
+                pricenow = 400 * quapro;
+                total = total + pricenow;
+                totalqty = totalqty + quapro;
+                totalqtyshow.textContent = totalqty;
+                totalamount.textContent = total;
+                payall = total - discount;
+                payallshow.textContent = payall;
+                // リセット
+                yakisobaflag = 0;
+                input_value = 0;
+                quapro = "";
+                valueshow(input_value);
+                productview.textContent = "";
+                proqty.textContent = "";
+            }
+            if (discountflag === 1) {
+                payall = total - discount;
+                payallshow.textContent = payall;
+                discount = 0;
+                discountflag = 0;
+                input_value = 0;
+                discountflag = 0;
+            }
+            if (finshflag === 1) {
+                register();
+            } else {
+                azukariflag = 1;
+            }
+            if (changeflag === 1) {
+                change = azukari - payall;
+                if (change < 0) {
+                    changeshow.textContent = "入力金不足";
+                    azukari = 0;
+                    input_value = 0;
+                    azukarishow.textContent = azukari;
+                    changeflag = 0;
+                } else {
+                    changeshow.textContent = change;
+                    finshflag = 1;
+                    azukariflag = 0;
+                }
+            }
+        });
+
+        function reset() {
+            input_value = 0;
+            yakisobaflag = 0;
+            quapro = "";
+            pricenow = 0;
+            total = 0;
+            totalqty = 0;
+            discountflag = 0;
+            discount = 0;
+            payall = 0;
+            azukari = 0;
+            azukariflag = 0;
+            change = 0;
+            changeflag = 0;
+            finshflag = 0;
+            productview.textContent = "";
+            proqty.textContent = "";
+            totalqtyshow.textContent = 0;
+            totalamount.textContent = 0;
+            discountshow.textContent = 0;
+            payallshow.textContent = 0;
+            azukarishow.textContent = 0;
+            changeshow.textContent = 0;
+        }
+        function register() {
+            regidata();
+            reset();
+            var checkValue = document.getElementById("check").value;
+            var formData = new FormData();
+            formData.append("check", checkValue);
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        document.getElementById("check").value = "";
+                        formData = null;
+                    } else {
+                        alert('登録に失敗しました。再度お試しください。');
+                    }
+                }
+            };
+            xhr.open("POST", "https://script.google.com/macros/s/AKfycbzuFurCD_pg8a0n1QCVSwSLK_oNcQnyNYQ31N9H9_R7bYnlDtMvEgH798tp-1yFtYUj_g/exec");
+            xhr.send(formData);
+        }
+
+        function regidata() {
+            var formDatamoney = new FormData();
+            formDatamoney.append("payall", payall);
+            formDatamoney.append("azukari", azukari);
+            formDatamoney.append("change", change);
+            formDatamoney.append("totalqty", totalqty);
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                    } else {
+                        alert('登録に失敗しました。再度お試しください。');
+                    }
+                }
+            };
+            xhr.open("POST", "https://script.google.com/macros/s/AKfycbzuFurCD_pg8a0n1QCVSwSLK_oNcQnyNYQ31N9H9_R7bYnlDtMvEgH798tp-1yFtYUj_g/exec");
+            xhr.send(formDatamoney);
+        }
+        function orderresponce() {
+            const inputElement = document.getElementById('check');
+            const id = inputElement.value;
+            fetch(`https://script.google.com/macros/s/AKfycbzuFurCD_pg8a0n1QCVSwSLK_oNcQnyNYQ31N9H9_R7bYnlDtMvEgH798tp-1yFtYUj_g/exec?id=${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(`エラー: ${data.error}`);
+                    } else {
+                        yakisobaflag = 1;
+                        productview.textContent = "焼きそば";
+                        quapro = data.qua;
+                        input_value = 0;
+                        valueshow(quapro);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('データの取得に失敗しました。');
+                });
+
+        }
+    </script>
+</body>
+
+</html>

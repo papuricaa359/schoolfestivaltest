@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理</title>
+    <link rel="stylesheet" href="style/checked.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+</head>
+<style>
+    * {
+        font-family: "Kosugi Maru", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .input-group input[type="text"] {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .input-group button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .input-group button:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h2>管理ページ</h2>
+        <div class="input-group">
+            <input type="text" id="check" required placeholder="オーダーID">
+            <button type="button" onclick="register()">受け取り済み</button>
+        </div>
+    </div>
+    <script src="script/checked.js"></script>
+</body>
+<script>
+    function register() {
+        var checkValue = document.getElementById("check").value;
+        var formData = new FormData();
+        formData.append("check", checkValue);
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    if (xhr.responseText.includes("IDが見つかりません")) {
+                        alert('IDが見つかりません。再度確認してください。');
+                    } else {
+                        document.getElementById("check").value = "";
+                        alert('登録が完了しました。');
+                    }
+                } else {
+                    alert('登録に失敗しました。再度お試しください。');
+                }
+            }
+        };
+        xhr.open("POST", "https://script.google.com/macros/s/AKfycbw_NKWIzbf3P4yXw53n9GsD2Y_Sn9qa6YUcARaXE73O2g0mjIWuSBEUyXwozehWiyzg1Q/exec");
+        xhr.send(formData);
+    }
+
+</script>
+
+</html>

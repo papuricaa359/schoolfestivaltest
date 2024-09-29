@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キャンセル</title>
+    <link rel="stylesheet" href="style/cancel.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <h2>キャンセル</h2>
+        <p>キャンセルしたいニックネームを入力してください。</p>
+        <form onsubmit="input(event)">
+            <div class="input-group">
+                <input type="text" id="input-name" required aria-label="ニックネーム" placeholder="ニックネーム">
+            </div>
+            <button type="submit" id="inputButton">キャンセルする</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <div class="check" style="display: none;">
+        <h2>キャンセルしても<br>よろしいですか</h2>
+        <h3>情報</h3>
+        <p id="orderID"></p>
+        <p id="name"></p>
+        <p id="daytime"></p>
+        <p id="qua"></p>
+        <p id="beni"></p>
+        <p>キャンセルした場合は、<br>取り消すことができません。</p>
+        <div class="flex">
+            <button id="noButton">いいえ</button>
+            <button id="yesButton">はい</button>
+        </div>
+    </div>
+    <div class="success" style="display: none;">
+        <h1>キャンセルしました。</h1>
+        <p>またのご利用をお待ちしております。</p>
+        <button onclick="window.location.href='top.html'">トップに戻る</button>
+    </div>
+    <div id="overlay" class="overlay" style="display: none;"></div>
+    <div id="loading" class="loading" style="display: none;">送信中...</div>
+</body>
+<script src="script/cancel.js"></script>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>モバイルオーダー</title>
+    <link rel="stylesheet" href="style/order.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1><ruby>
+                大谷一平<rt>おおやいっぺい</rt>
+            </ruby>ちゃんモバイルオーダー</h1>
+    </header>
+
+    <div class="overlay"></div>
+    <div class="boxset">
+        <div class="box name">
+            <h1>ニックネーム登録</h1>
+            <h3>ニックネームを入力してください</h3>
+            <div id="error-message" class="error-message"></div>
+            <form onsubmit="return validateName();">
+                <input type="text" id="NameInput" name="NameInput" required>
+                <p>※最大10文字まで登録いただけます。</p>
+                <p>※ログイン時に使用します。</p>
+                <button type="submit">登録する</button>
+            </form>
+        </div>
+
+        <div class="box time">
+            <h1>受け取り時間登録</h1>
+            <h3>受け取りたい時間を入力してください</h3>
+            <form onsubmit="return validatetime();">
+                <div class="input-group">
+                    <p>日付を選択してください</p>
+                    <select id="day" required>
+                        <option value="29">29日</option>
+                        <option value="30">30日</option>
+                    </select>
+                    <p>時間を選択してください</p>
+                    <div class="flex">
+                        <select id="hour" required>
+                        </select>
+                        <select id="minute" required>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit">登録する</button>
+            </form>
+        </div>
+
+        <div class="box order">
+            <h1>注文登録</h1>
+            <h3>注文個数を入力してください</h3>
+            <form onsubmit="return validateOrder();">
+                <img src="yakisoba.jpg" alt="焼きそば">
+                <h2>焼きそば</h2>
+                <p>￥400</p>
+                <div class="input-group">
+                    <select id="qua" required>
+                        <option value="1">1個</option>
+                        <option value="2">2個</option>
+                        <option value="3">3個</option>
+                        <option value="4">4個</option>
+                        <option value="5">5個</option>
+                    </select>
+
+                    <div class="flex benicheck"><input type="checkbox" id="beni" checked> <label>紅しょうが（サービス）</label>
+                    </div>
+
+                </div>
+                <button type="submit">登録する</button>
+            </form>
+        </div>
+        <div class="box check">
+            <h3>注文を確定し、<br>送信してもよろしいですか。</h3>
+            <form onsubmit="return validatename();">
+                <div class="flex">
+                    <button class="cancelbutton" type="button" onclick="checkcancel()">キャンセル</button>
+                    <button class="orderbutton" type="button" onclick="send()">注文</button>
+                </div>
+            </form>
+        </div>
+        <div class="box sendnow">
+            <h1>送信中...</h1>
+        </div>
+    </div>
+    <main class="form">
+        <div class="flex viewport">
+            <p id="title">ニックネーム：</p>
+            <p id="namearea" class="area"></p>
+            <button type="submit" onclick="namechange()">変更</button>
+        </div>
+        <div class="flex viewport">
+            <p id="title">受け取り日時：</p>
+            <div class="flex area">
+                <p id="dayarea"></p>
+                <p id="hourarea"></p>
+                <p id="minutearea"></p>
+            </div>
+            <button type="submit" onclick="timechange()">変更</button>
+        </div>
+        <div class="flex viewport">
+            <p id="title">注文個数：</p>
+            <p id="quaarea" class="area"></p>
+            <button type="submit" onclick="orderchange()">変更</button>
+        </div>
+        <div class="sumflex sum">
+            <p>合計金額</p>
+            <p id="pricearea" class="area"></p>
+        </div>
+        <button class="sendbutton" type="submit" onclick="check()">内容を確定して注文する</button>
+    </main>
+    <div class="success" style="display: none;">
+        <h1>ありがとうございました。</h1>
+        <h1>注文が完了しました。</h1>
+        <div id="result">
+            <p>注文ID: <span id="orderIDshow"></span></p>
+            <p>名前: <span id="nameshow"></span></p>
+            <p>注文した日時: <span id="daytimeshow"></span></p>
+            <p>注文した個数: <span id="quashow"></span></p>
+            <p>紅しょうが有無: <span id="benishow"></span></p>
+        </div>
+        <button class="button-link" onclick="window.location.href='top.html';">トップに戻る</button>
+    </div>
+
+</body>
+<script src="script/order.js"></script>
+
+</html>

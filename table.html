@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>未渡しの注文リスト</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+</head>
+<style>
+  * {
+    font-family: "Kosugi Maru", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+  }
+
+  h2 {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .container {
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  label {
+    margin-right: 10px;
+  }
+
+  select {
+    padding: 8px;
+    font-size: 16px;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  button {
+    padding: 8px 20px;
+    font-size: 16px;
+    height: 40px;
+    background-color: #036635;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+
+  button:hover {
+    background-color: #036635;
+  }
+
+  .table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #036635;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tr:hover {
+    background-color: #ddd;
+  }
+
+  .loading {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .no-results {
+    text-align: center;
+    margin-top: 20px;
+    display: none;
+  }
+</style>
+
+<body>
+  <div class="container">
+    <h2>未渡しの注文リスト</h2>
+    <form id="orderForm">
+      <label for="hour">希望日時:</label>
+      <select id="day" name="day">
+        <option value="1">1日</option>
+        <option value="2">2日</option>
+        <option value="3">3日</option>
+        <option value="4">4日</option>
+      </select>
+      <select id="hour" name="hour">
+        <option value="00">00時</option>
+        <option value="01">01時</option>
+        <option value="02">02時</option>
+        <option value="03">03時</option>
+        <option value="04">04時</option>
+        <option value="05">05時</option>
+        <option value="06">06時</option>
+        <option value="07">07時</option>
+        <option value="08">08時</option>
+        <option value="09">09時</option>
+        <option value="10">10時</option>
+        <option value="11">11時</option>
+        <option value="12">12時</option>
+        <option value="13">13時</option>
+        <option value="14">14時</option>
+        <option value="15">15時</option>
+        <option value="16">16時</option>
+        <option value="17">17時</option>
+        <option value="18">18時</option>
+        <option value="19">19時</option>
+        <option value="20">20時</option>
+        <option value="21">21時</option>
+        <option value="22">22時</option>
+        <option value="23">23時</option>
+      </select>
+      <select id="minute" name="minute">
+        <option value="00">00分</option>
+        <option value="15">15分</option>
+        <option value="30">30分</option>
+        <option value="45">45分</option>
+      </select>
+      <button type="button" onclick="getOrders()">検索</button>
+    </form>
+
+    <div id="loading" class="loading" style="display: none;">
+      <p>データを取得中...</p>
+    </div>
+
+    <div id="noResults" class="no-results">
+      <p>該当する注文はありません。</p>
+    </div>
+
+    <div class="table-container">
+      <table id="orderTable" style="display: none;">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>ニックネーム</th>
+            <th>希望日時</th>
+            <th>個数</th>
+            <th>紅しょうが</th>
+          </tr>
+        </thead>
+        <tbody id="orderBody">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function getOrders() {
+      const day = document.getElementById('day').value.trim();
+      const hour = document.getElementById('hour').value.trim();
+      const minute = document.getElementById('minute').value.trim();
+      const desiredTime = day + "日" + hour + ':' + minute;
+
+      // ローディング表示
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('noResults').style.display = 'none';
+      document.getElementById('orderTable').style.display = 'none';
+
+      fetch('https://script.google.com/macros/s/AKfycbzdIlamwzOnBxTTL4lYCAsRBM5s2jDWNtCFD_oWpl3DROkmZE31S8Z-u_m6_6C2dkyS/exec?desiredTime=' + desiredTime)
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            throw new Error(data.error);
+          }
+          if (data.orders.length === 0) {
+            displayNoResults();
+          } else {
+            displayOrders(data.orders);
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+          displayNoResults();
+        })
+        .finally(() => {
+          // ローディング非表示
+          document.getElementById('loading').style.display = 'none';
+        });
+    }
+
+    function displayOrders(orders) {
+      const tbody = document.getElementById('orderBody');
+      tbody.innerHTML = '';
+
+      orders.forEach(order => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+        <td>${order[0]}</td>
+        <td>${order[1]}</td>
+        <td>${order[2]}</td>
+        <td>${order[3]}</td>
+        <td>${order[4]}</td>
+      `;
+        tbody.appendChild(row);
+      });
+      document.getElementById('noResults').style.display = 'none';
+      document.getElementById('orderTable').style.display = 'table';
+    }
+
+    function displayNoResults() {
+      document.getElementById('noResults').style.display = 'block';
+      document.getElementById('orderTable').style.display = 'none';
+    }
+  </script>
+</body>
+
+</html>

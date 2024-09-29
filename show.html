@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>食券表示</title>
+  <link rel="stylesheet" href="style/show.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="login">
+    <div class="container">
+      <h2>ログイン</h2>
+      <p>ニックネームを入力してログインしてください。</p>
+      <form onsubmit="login(event)">
+        <div class="input-group">
+          <input type="text" id="login-name" required aria-label="ニックネーム" placeholder="ニックネーム">
+        </div>
+        <button type="submit" id="loginButton">食券を取得する</button>
+      </form>
+      <div id="result"></div>
+    </div>
+  </div>
+  <div class="show" style="display: none;">
+    <h1 class="header">注文完了</h1>
+    <div class="details">
+      <p class="label">オーダーID:</p>
+      <p class="value" id="idshow"></p>
+    </div>
+    <p class="value" id="nameshow"></p>
+    <p class="message">下記の時間になりましたら店頭に<br>受け取りにお越しください。</p>
+    <div class="details">
+      <p class="value" id="daytimeshow"></p>
+    </div>
+    <h2 class="hidden">注文内容</h2>
+    <div class="food-info hidden">
+      <img src="yakisoba.jpg" alt="焼きそば">
+      <div class="food-details">
+        <h2>焼きそば</h2>
+        <p class="quantity" id="quashow"></p>
+        <p class="value" id="benishow"></p>
+      </div>
+    </div>
+    <button class="button-link" onclick="window.location.href='top.html';">トップに戻る</button>
+  </div>
+  <script src="script/show.js"></script>
+</body>
+
+</html>
